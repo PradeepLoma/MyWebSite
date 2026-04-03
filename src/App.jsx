@@ -429,7 +429,7 @@ const Nav=()=>(
   <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,padding:"18px 5%",display:"flex",alignItems:"center",justifyContent:"space-between",background:"rgba(10,10,10,0.88)",backdropFilter:"blur(20px)",borderBottom:"1px solid var(--border)" }}>
     <a href="#hero" className="mono" style={{ fontSize:13,color:"var(--accent)",textDecoration:"none",letterSpacing:"0.02em" }}>pradeep.kr</a>
     <ul className="nav-links-list" style={{ display:"flex",gap:28,listStyle:"none" }}>
-      {["About","Experience","Skills","Projects","Contact"].map(s=>(
+      {["About","Experience","Skills","Projects","Recognition","Contact"].map(s=>(
         <li key={s}><a href={`#${s.toLowerCase()}`} className="nav-link" style={{ fontSize:13,color:"var(--text2)",textDecoration:"none",letterSpacing:"0.04em",transition:"color 0.2s" }}>{s}</a></li>
       ))}
     </ul>
@@ -447,24 +447,21 @@ const Terminal=()=>(
     </div>
     {/* Code body */}
     <div className="mono" style={{ padding:"20px 22px",fontSize:12.5,lineHeight:2 }}>
-      <div style={{ display:"flex",gap:10 }}><span style={{color:"var(--text3)"}}>// Senior Android Developer · 6+ Years</span></div>
+      <div><span style={{color:"var(--text3)"}}>// Senior Android Developer · 6+ Years</span></div>
       <div style={{ height:6 }}/>
-      <div style={{ display:"flex",gap:10 }}><span style={{color:"#82aaff"}}>data class</span><span style={{color:"var(--text)"}}> Developer(</span></div>
-      {[
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>name = </span><span style={{color:"#c3e88d"}}>"Pradeep Kumar Rai"</span><span style={{color:"var(--text)"}}>,</span></>],
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>experience = </span><span style={{color:"#c3e88d"}}>"6+ Years Android"</span><span style={{color:"var(--text)"}}>,</span></>],
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>stack = listOf(</span><span style={{color:"#c3e88d"}}>"Kotlin"</span><span style={{color:"var(--text)"}}>, </span><span style={{color:"#c3e88d"}}>"Compose"</span><span style={{color:"var(--text)"}}>, </span><span style={{color:"#c3e88d"}}>"Java"</span><span style={{color:"var(--text)"}}>),</span></>],
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>crashFree = </span><span style={{color:"#f78c6c"}}>0.99f</span><span style={{color:"var(--text)"}}>,</span></>],
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>appsShipped = </span><span style={{color:"#f78c6c"}}>7</span><span style={{color:"var(--text)"}}>,</span></>],
-        [<><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>role = </span><span style={{color:"#c3e88d"}}>"Senior Dev & Team Lead"</span><span style={{color:"var(--text)"}}>,</span></>],
-      ].map((line,i)=>(
-        <div key={i} style={{ display:"flex",gap:10,paddingLeft:16 }}>{line}</div>
-      ))}
-      {/* NDA note */}
-      <div style={{ display:"flex",gap:10,paddingLeft:16 }}>
-        <span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>note = </span><span style={{color:"#f78c6c",fontSize:11.5,lineHeight:1.6}}>"Private enterprise apps for<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;international clients aren't<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;publicly available due to NDAs."</span>
-      </div>
-      <div style={{ display:"flex",gap:10 }}><span style={{color:"var(--text)"}}>)</span></div>
+      <div><span style={{color:"#82aaff"}}>data class</span><span style={{color:"var(--text)"}}> Developer(</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>name = </span><span style={{color:"#c3e88d"}}>"Pradeep Kumar Rai"</span><span style={{color:"var(--text)"}}>,</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>exp = </span><span style={{color:"#c3e88d"}}>"6+ Years"</span><span style={{color:"var(--text)"}}>,</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>stack = listOf(</span></div>
+      <div style={{paddingLeft:32}}><span style={{color:"#c3e88d"}}>"Jetpack Compose"</span><span style={{color:"var(--text)"}}>, </span><span style={{color:"#c3e88d"}}>"Kotlin"</span><span style={{color:"var(--text)"}}>, </span><span style={{color:"#c3e88d"}}>"Java"</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"var(--text)"}}>),</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>crashFree = </span><span style={{color:"#f78c6c"}}>0.99</span><span style={{color:"var(--text)"}}>,</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>apps = </span><span style={{color:"#f78c6c"}}>7</span><span style={{color:"var(--text)"}}>,</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>role = </span><span style={{color:"#c3e88d"}}>"Team Lead"</span><span style={{color:"var(--text)"}}>,</span></div>
+      <div style={{paddingLeft:16}}><span style={{color:"#82aaff"}}>val </span><span style={{color:"var(--text)"}}>note = </span><span style={{color:"#c3e88d"}}>"Private enterprise apps for</span></div>
+      <div style={{paddingLeft:16,display:"flex"}}><span style={{color:"transparent",userSelect:"none",pointerEvents:"none",flexShrink:0}}>{"val note = \""}</span><span style={{color:"#c3e88d"}}>international clients aren't</span></div>
+      <div style={{paddingLeft:16,display:"flex"}}><span style={{color:"transparent",userSelect:"none",pointerEvents:"none",flexShrink:0}}>{"val note = \""}</span><span style={{color:"#c3e88d"}}>publicly available due to NDAs."</span></div>
+      <div><span style={{color:"var(--text)"}}>)</span></div>
     </div>
     {/* Status bar */}
     <div style={{ padding:"8px 18px",background:"rgba(61,220,132,0.05)",borderTop:"1px solid rgba(61,220,132,0.1)",display:"flex",alignItems:"center",gap:12 }}>
@@ -562,7 +559,7 @@ const About=()=>(
         </BentoCard>
 
         {/* CI/CD */}
-        <BentoCard>
+        <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"space-between" }}>
             <div>
               <span style={{ fontSize:22 }}>🔧</span>
@@ -574,7 +571,7 @@ const About=()=>(
         </BentoCard>
 
         {/* Team */}
-        <BentoCard>
+        <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"space-between" }}>
             <div>
               <span style={{ fontSize:22 }}>👥</span>
@@ -585,19 +582,23 @@ const About=()=>(
         </BentoCard>
 
         {/* Location */}
-        <BentoCard>
-          <div style={{ fontSize:22,marginBottom:8 }}>🌏</div>
-          <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginBottom:4 }}>Based in Cambodia</div>
-          <div className="mono" style={{ fontSize:10.5,color:"var(--text3)" }}>Available globally · Remote-first</div>
+        <BentoCard rowSpan={2}>
+          <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"center" }}>
+            <div style={{ fontSize:22,marginBottom:8 }}>🌏</div>
+            <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginBottom:4 }}>Based in Cambodia</div>
+            <div className="mono" style={{ fontSize:10.5,color:"var(--text3)" }}>Available globally · Remote-first</div>
+          </div>
         </BentoCard>
 
         {/* Users stat */}
-        <BentoCard>
-          <div style={{ fontSize:28,fontWeight:800,lineHeight:1 }}>
-            <span style={{color:"#c3e88d"}}>500K</span><span style={{color:"var(--accent)",fontSize:18}}>+</span>
+        <BentoCard rowSpan={2}>
+          <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"center" }}>
+            <div style={{ fontSize:28,fontWeight:800,lineHeight:1 }}>
+              <span style={{color:"#c3e88d"}}>500K</span><span style={{color:"var(--accent)",fontSize:18}}>+</span>
+            </div>
+            <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginTop:6 }}>Users reached</div>
+            <div style={{ fontSize:11.5,color:"var(--text2)",marginTop:4 }}>Across all shipped apps</div>
           </div>
-          <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginTop:6 }}>Users reached</div>
-          <div style={{ fontSize:11.5,color:"var(--text2)",marginTop:4 }}>Across all shipped apps</div>
         </BentoCard>
       </MagicBentoGrid>
     </div>
@@ -745,35 +746,12 @@ const Projects=()=>(
 
 /* ─── EDUCATION & AWARDS (Magic Bento) ────────────────────── */
 const More=()=>(
-  <section id="more" style={{ padding:"100px 0" }}>
+  <section id="recognition" style={{ padding:"100px 0" }}>
     <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%" }}>
-      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>05 — Background</p>
-      <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:40 }}>Education &amp; Recognition.</h2>
+      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>05 — Recognition</p>
+      <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:40 }}>Awards &amp; Achievements.</h2>
 
       <MagicBentoGrid>
-        {/* Education header */}
-        <BentoCard span={2}>
-          <div style={{ display:"flex",alignItems:"center",gap:12 }}>
-            <span style={{ fontSize:28 }}>🎓</span>
-            <div>
-              <div style={{ fontSize:14,fontWeight:700,color:"var(--text)" }}>Master of Business Administration</div>
-              <div className="mono" style={{ fontSize:11,color:"var(--accent)",marginTop:3 }}>Matrix Institute of Business and Management</div>
-              <div className="mono" style={{ fontSize:10.5,color:"var(--text3)",marginTop:2 }}>2017 – 2018 · Noida, India</div>
-            </div>
-          </div>
-        </BentoCard>
-
-        <BentoCard span={2}>
-          <div style={{ display:"flex",alignItems:"center",gap:12 }}>
-            <span style={{ fontSize:28 }}>📚</span>
-            <div>
-              <div style={{ fontSize:14,fontWeight:700,color:"var(--text)" }}>Bachelor of Commerce (B.COM)</div>
-              <div className="mono" style={{ fontSize:11,color:"var(--accent)",marginTop:3 }}>Vidyant Hindu Degree College</div>
-              <div className="mono" style={{ fontSize:10.5,color:"var(--text3)",marginTop:2 }}>2013 – 2016 · Lucknow, India</div>
-            </div>
-          </div>
-        </BentoCard>
-
         {/* Developer of year — big card */}
         <BentoCard span={2} rowSpan={2} style={{ background:"linear-gradient(135deg,#0f2d1c 0%,#111 60%)" }}>
           <div style={{ height:"100%",display:"flex",flexDirection:"column" }}>
@@ -834,11 +812,6 @@ const Contact=()=>(
         <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>06 — Contact</p>
         <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:16 }}>Let's build something<br/>great together.</h2>
         <p style={{ fontSize:14.5,color:"var(--text2)",lineHeight:1.85,margin:"18px 0 32px" }}>Open to Senior Android roles, team lead positions, freelance projects, and interesting collaborations. Based in Cambodia — available globally.</p>
-
-        {/* Lanyard widget */}
-        <div style={{ display:"flex",justifyContent:"center",marginBottom:32 }}>
-          <LanyardWidget/>
-        </div>
 
         <a href="mailto:raipradeep009@gmail.com" className="c-email mono" style={{ display:"inline-block",fontSize:16,color:"var(--accent)",textDecoration:"none",borderBottom:"1px solid rgba(61,220,132,0.3)",paddingBottom:3,marginBottom:8,transition:"border-color 0.2s" }}>raipradeep009@gmail.com</a>
         <span className="mono" style={{ display:"block",fontSize:12,color:"var(--text3)",marginBottom:32 }}>📱 WhatsApp / Telegram: +91-7905307223 · +855-11713091</span>
