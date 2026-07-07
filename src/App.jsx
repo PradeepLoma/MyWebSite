@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─────────────────────────────────────────────────────────────
-   GLOBAL STYLES
+   GLOBAL STYLES (updated color scheme)
 ───────────────────────────────────────────────────────────── */
 const GlobalStyles = () => (
   <style>{`
@@ -10,8 +10,9 @@ const GlobalStyles = () => (
     :root {
       --bg:#0a0a0a; --bg2:#111111; --bg3:#161616;
       --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
-      --text:#e8e8e8; --text2:#888; --text3:#555;
-      --accent:#3DDC84; --accent2:#2ab56d; --accent-dim:rgba(61,220,132,0.12);
+      --text:#e8e8e8; --text2:#a0a0a0; --text3:#555;
+      --accent:#6C63FF; --accent2:#5a4bd1; --accent-dim:rgba(108,99,255,0.15);
+      --accent-cyan:#00D4FF; --accent-glow:rgba(108,99,255,0.3);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -22,37 +23,34 @@ const GlobalStyles = () => (
     .nav-link:hover{color:var(--text)!important;}
     @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
     .blink-dot{animation:blink 2s ease-in-out infinite;}
-    @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(61,220,132,0.5)}70%{box-shadow:0 0 0 10px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+    @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(108,99,255,0.5)}70%{box-shadow:0 0 0 10px rgba(108,99,255,0)}100%{box-shadow:0 0 0 0 rgba(108,99,255,0)}}
     .btn-p:hover{background:var(--accent2)!important;transform:translateY(-1px);}
     .btn-g:hover{border-color:var(--accent)!important;color:var(--accent)!important;transform:translateY(-1px);}
-    .edu-card:hover,.award-card:hover{border-color:rgba(61,220,132,0.3)!important;}
+    .edu-card:hover,.award-card:hover{border-color:rgba(108,99,255,0.3)!important;}
     .soc-btn:hover{border-color:var(--accent)!important;color:var(--accent)!important;background:var(--accent-dim)!important;}
     .c-email:hover{border-color:var(--accent)!important;}
     .tl-ul li{position:relative;padding-left:16px;}
     .tl-ul li::before{content:'▹';position:absolute;left:0;color:var(--accent);font-size:11px;top:3px;}
 
-    /* Lanyard status colors */
     .status-online{background:#23a55a;}
     .status-idle{background:#f0b232;}
     .status-dnd{background:#f23f42;}
     .status-offline{background:#80848e;}
 
-    /* Spotlight card */
     .spotlight-card{position:relative;overflow:hidden;}
     .spotlight-card::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;
-      background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),var(--sc,rgba(61,220,132,0.12)),transparent 40%);
+      background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),var(--sc,rgba(108,99,255,0.15)),transparent 40%);
       opacity:0;transition:opacity 0.3s;}
     .spotlight-card:hover::before{opacity:1;}
 
-    /* Magic Bento */
     .bento-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(120px,auto);gap:12px;}
     .bento-card{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border);
       background:var(--bg2);transition:border-color 0.25s,transform 0.2s;}
     .bento-card::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
-      background:radial-gradient(300px circle at var(--bx,-100px) var(--by,-100px),rgba(61,220,132,0.1),transparent 60%);
+      background:radial-gradient(300px circle at var(--bx,-100px) var(--by,-100px),rgba(108,99,255,0.1),transparent 60%);
       opacity:0;transition:opacity 0.3s;}
     .bento-grid:hover .bento-card::before{opacity:1;}
-    .bento-card:hover{border-color:rgba(61,220,132,0.3);transform:translateY(-2px);}
+    .bento-card:hover{border-color:rgba(108,99,255,0.35);transform:translateY(-2px);}
     .bento-inner{position:relative;z-index:1;height:100%;padding:22px;}
 
     @media(max-width:900px){
@@ -75,10 +73,11 @@ const GlobalStyles = () => (
    REACTBITS: CHROMA GRID  (Skills)
 ══════════════════════════════════════════════════════════ */
 const PALETTE = [
-  "#3DDC84","#82aaff","#c3e88d","#f78c6c","#ffcb6b","#89ddff",
-  "#ff5370","#b2ccd6","#c792ea","#e1acff","#addb67","#ffd700",
-  "#f07178","#7fdbca","#a8daff","#cfcfcf","#ff9cac","#80cbc4",
+  "#6C63FF", "#00D4FF", "#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF",
+  "#FF6B9D", "#A66CFF", "#FF9F43", "#00C9A7", "#FF6B6B", "#FECA57",
+  "#48DBFB", "#FF9FF3", "#54A0FF", "#5F27CD", "#FF9F43", "#00D2D3",
 ];
+
 function ChromaGrid({ items }) {
   const [hov, setHov] = useState(null);
   return (
@@ -129,19 +128,17 @@ function ProfileCard({ name, role, location, avatarUrl, handle, stats }) {
         transform:`rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition:hov?"transform 0.08s ease-out":"transform 0.5s ease-out",
         transformStyle:"preserve-3d",borderRadius:20,overflow:"hidden",position:"relative",
-        background:"linear-gradient(145deg,#181f1a 0%,#111 50%,#0c1f14 100%)",
-        border:"1px solid rgba(61,220,132,0.2)",padding:"24px 22px",
-        boxShadow:hov?"0 32px 64px rgba(0,0,0,0.55),0 0 0 1px rgba(61,220,132,0.1)":"0 10px 40px rgba(0,0,0,0.3)",
+        background:"linear-gradient(145deg,#1a1a2e 0%,#111 50%,#0d0a2a 100%)",
+        border:"1px solid rgba(108,99,255,0.25)",padding:"24px 22px",
+        boxShadow:hov?"0 32px 64px rgba(0,0,0,0.55),0 0 0 1px rgba(108,99,255,0.15)":"0 10px 40px rgba(0,0,0,0.3)",
       }}>
-        {/* Shine */}
-        <div style={{ position:"absolute",inset:0,borderRadius:"inherit",pointerEvents:"none",background:`radial-gradient(ellipse at ${shine.x}% ${shine.y}%,rgba(61,220,132,0.13) 0%,transparent 60%)`,opacity:hov?1:0,transition:"opacity 0.3s" }}/>
-        <div style={{ position:"absolute",top:-50,right:-50,width:140,height:140,borderRadius:"50%",background:"rgba(61,220,132,0.06)",filter:"blur(40px)",pointerEvents:"none" }}/>
+        <div style={{ position:"absolute",inset:0,borderRadius:"inherit",pointerEvents:"none",background:`radial-gradient(ellipse at ${shine.x}% ${shine.y}%,rgba(108,99,255,0.13) 0%,transparent 60%)`,opacity:hov?1:0,transition:"opacity 0.3s" }}/>
+        <div style={{ position:"absolute",top:-50,right:-50,width:140,height:140,borderRadius:"50%",background:"rgba(108,99,255,0.06)",filter:"blur(40px)",pointerEvents:"none" }}/>
 
-        {/* Avatar + info */}
         <div style={{ display:"flex",alignItems:"flex-start",gap:14,marginBottom:16 }}>
-          <div style={{ width:60,height:60,borderRadius:"50%",border:"2px solid var(--accent)",overflow:"hidden",flexShrink:0,boxShadow:"0 0 16px rgba(61,220,132,0.28)",animation:"pulse-ring 3s ease infinite" }}>
+          <div style={{ width:60,height:60,borderRadius:"50%",border:"2px solid var(--accent)",overflow:"hidden",flexShrink:0,boxShadow:"0 0 16px rgba(108,99,255,0.28)",animation:"pulse-ring 3s ease infinite" }}>
             <img src={avatarUrl} alt={name} style={{ width:"100%",height:"100%",objectFit:"cover" }}
-              onError={e => { e.target.replaceWith(Object.assign(document.createElement('div'),{ textContent:'P', style:`width:100%;height:100%;background:linear-gradient(135deg,#1f4d35,#0d2a1e);display:flex;align-items:center;justify-content:center;font-size:26px;color:#3DDC84;font-weight:700;` })); }}
+              onError={e => { e.target.style.display='none'; e.target.parentNode.textContent='P'; e.target.parentNode.style.cssText='width:100%;height:100%;background:linear-gradient(135deg,#2d1b4d,#1a0a2e);display:flex;align-items:center;justify-content:center;font-size:26px;color:#6C63FF;font-weight:700;'; }}
             />
           </div>
           <div style={{ flex:1,paddingTop:2 }}>
@@ -151,13 +148,11 @@ function ProfileCard({ name, role, location, avatarUrl, handle, stats }) {
           </div>
         </div>
 
-        {/* Available badge */}
-        <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"rgba(61,220,132,0.09)",border:"1px solid rgba(61,220,132,0.2)",borderRadius:100,padding:"4px 12px",marginBottom:16 }}>
+        <div style={{ display:"inline-flex",alignItems:"center",gap:6,background:"rgba(108,99,255,0.09)",border:"1px solid rgba(108,99,255,0.2)",borderRadius:100,padding:"4px 12px",marginBottom:16 }}>
           <span className="blink-dot" style={{ width:6,height:6,borderRadius:"50%",background:"var(--accent)",flexShrink:0 }}/>
           <span className="mono" style={{ fontSize:10,color:"var(--accent)" }}>Available for opportunities</span>
         </div>
 
-        {/* Stats */}
         <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:7,marginBottom:16 }}>
           {stats.map(({ value,label }) => {
             const num = value.replace(/[^0-9.]/g,""); const sfx = value.replace(/[0-9.]/g,"");
@@ -170,12 +165,11 @@ function ProfileCard({ name, role, location, avatarUrl, handle, stats }) {
           })}
         </div>
 
-        {/* Contact links */}
         <div style={{ display:"flex",gap:7,flexWrap:"wrap" }}>
           {[
             { href:`https://github.com/${handle}`,label:`@${handle}`,hc:"var(--accent)",icon:<GithubIcon size={12}/> },
             { href:"https://wa.me/917905307223",label:"WhatsApp",hc:"#25D366",icon:<span style={{fontSize:12}}>💬</span> },
-            { href:"https://t.me/+917905307223",label:"Telegram",hc:"#2AABEE",icon:<span style={{fontSize:12}}>✈️</span> },
+            { href:"https://t.me/+85511713091",label:"Telegram",hc:"#2AABEE",icon:<span style={{fontSize:12}}>✈️</span> },
           ].map(({ href,label,hc,icon }) => (
             <a key={label} href={href} target="_blank" rel="noopener"
               style={{ flex:"1 1 auto",display:"flex",alignItems:"center",justifyContent:"center",gap:5,background:"rgba(255,255,255,0.03)",border:"1px solid var(--border)",borderRadius:8,padding:"7px 8px",fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"var(--text2)",textDecoration:"none",transition:"border-color 0.2s,color 0.2s" }}
@@ -191,9 +185,7 @@ function ProfileCard({ name, role, location, avatarUrl, handle, stats }) {
 
 /* ══════════════════════════════════════════════════════════
    REACTBITS: LANYARD  (Discord presence widget)
-   Place in Contact section as "Live Status" card.
    → Add your Discord User ID to DISCORD_ID below to go live.
-   → Join https://discord.gg/lanyard first!
 ══════════════════════════════════════════════════════════ */
 const DISCORD_ID = ""; // 🔴 Paste your Discord User ID here to go live
 
@@ -227,18 +219,16 @@ function LanyardWidget() {
 
   // ── Static fallback (no Discord ID configured) ──
   if (!DISCORD_ID) return (
-    <div style={{ background:"linear-gradient(135deg,#1a1a2e 0%,#111 60%,#0d1f14 100%)",border:"1px solid rgba(88,101,242,0.3)",borderRadius:16,padding:"20px 22px",position:"relative",overflow:"hidden",maxWidth:360 }}>
-      <div style={{ position:"absolute",top:-40,right:-40,width:120,height:120,borderRadius:"50%",background:"rgba(88,101,242,0.08)",filter:"blur(30px)" }}/>
-      {/* Discord logo header */}
+    <div style={{ background:"linear-gradient(135deg,#1a1a2e 0%,#111 60%,#0d0a2a 100%)",border:"1px solid rgba(108,99,255,0.3)",borderRadius:16,padding:"20px 22px",position:"relative",overflow:"hidden",maxWidth:360 }}>
+      <div style={{ position:"absolute",top:-40,right:-40,width:120,height:120,borderRadius:"50%",background:"rgba(108,99,255,0.08)",filter:"blur(30px)" }}/>
       <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:16 }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.012.143.083.274.203.362a19.9 19.9 0 0 0 5.993 3.03.076.076 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         <span style={{ fontSize:13,fontWeight:700,color:"#fff",fontFamily:"'Space Grotesk',sans-serif" }}>Discord Status</span>
         <span style={{ marginLeft:"auto",fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"#80848e",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:100,padding:"2px 8px" }}>Live</span>
       </div>
-      {/* Avatar row */}
       <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:14 }}>
         <div style={{ position:"relative",width:44,height:44 }}>
-          <img src="https://avatars.githubusercontent.com/raipradeep" alt="P" style={{ width:44,height:44,borderRadius:"50%",border:"2px solid rgba(88,101,242,0.5)",objectFit:"cover" }}/>
+          <img src="https://avatars.githubusercontent.com/raipradeep" alt="P" style={{ width:44,height:44,borderRadius:"50%",border:"2px solid rgba(108,99,255,0.5)",objectFit:"cover" }}/>
           <span style={{ position:"absolute",bottom:0,right:0,width:12,height:12,borderRadius:"50%",background:"#80848e",border:"2px solid #111" }}/>
         </div>
         <div>
@@ -246,7 +236,6 @@ function LanyardWidget() {
           <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"#80848e" }}>⚙️ Add Discord ID to go live</div>
         </div>
       </div>
-      {/* Status cards */}
       <div style={{ background:"rgba(255,255,255,0.04)",borderRadius:10,padding:"10px 12px",marginBottom:10 }}>
         <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#80848e",letterSpacing:"0.08em",marginBottom:6,textTransform:"uppercase" }}>Currently</div>
         <div style={{ display:"flex",alignItems:"center",gap:8 }}>
@@ -265,7 +254,7 @@ function LanyardWidget() {
 
   // ── Live Lanyard data ──
   if (err || !data) return (
-    <div style={{ background:"rgba(88,101,242,0.08)",border:"1px solid rgba(88,101,242,0.2)",borderRadius:16,padding:"20px 22px" }}>
+    <div style={{ background:"rgba(108,99,255,0.08)",border:"1px solid rgba(108,99,255,0.2)",borderRadius:16,padding:"20px 22px" }}>
       <div className="mono" style={{ fontSize:11,color:"var(--text3)" }}>{err?"Could not connect to Lanyard":"Connecting to Discord..."}</div>
     </div>
   );
@@ -277,8 +266,8 @@ function LanyardWidget() {
   const avatarUrl = user ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=128` : "";
 
   return (
-    <div style={{ background:"linear-gradient(135deg,#1a1a2e 0%,#111 60%,#0d1f14 100%)",border:"1px solid rgba(88,101,242,0.3)",borderRadius:16,padding:"20px 22px",position:"relative",overflow:"hidden",maxWidth:360 }}>
-      <div style={{ position:"absolute",top:-40,right:-40,width:120,height:120,borderRadius:"50%",background:"rgba(88,101,242,0.08)",filter:"blur(30px)" }}/>
+    <div style={{ background:"linear-gradient(135deg,#1a1a2e 0%,#111 60%,#0d0a2a 100%)",border:"1px solid rgba(108,99,255,0.3)",borderRadius:16,padding:"20px 22px",position:"relative",overflow:"hidden",maxWidth:360 }}>
+      <div style={{ position:"absolute",top:-40,right:-40,width:120,height:120,borderRadius:"50%",background:"rgba(108,99,255,0.08)",filter:"blur(30px)" }}/>
       <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:16 }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.012.143.083.274.203.362a19.9 19.9 0 0 0 5.993 3.03.076.076 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         <span style={{ fontSize:13,fontWeight:700,color:"#fff" }}>Discord</span>
@@ -321,9 +310,7 @@ function LanyardWidget() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   REACTBITS: MAGIC BENTO  (About & Education sections)
-   Mouse position is tracked on the grid container and
-   passed to each card via CSS custom properties.
+   REACTBITS: MAGIC BENTO
 ══════════════════════════════════════════════════════════ */
 function MagicBentoGrid({ children }) {
   const ref = useRef(null);
@@ -374,7 +361,7 @@ function PixelCard({ children, disabled=false }) {
     for(const p of pixels.current){
       if(hovering.current&&p.a<p.ta){if(!p.t0)p.t0=ts;const el=ts-p.t0-p.delay;if(el>0){p.a=Math.min(p.ta,el/250);live=true;}}
       else if(!hovering.current&&p.a>0){p.a=Math.max(0,p.a-0.05);p.t0=null;live=true;}
-      if(p.a>0){ctx.fillStyle=`rgba(61,220,132,${p.a*0.28})`;ctx.fillRect(p.x,p.y,p.sz-1,p.sz-1);}
+      if(p.a>0){ctx.fillStyle=`rgba(108,99,255,${p.a*0.28})`;ctx.fillRect(p.x,p.y,p.sz-1,p.sz-1);}
     }
     if(live||hovering.current)raf.current=requestAnimationFrame(tick);else raf.current=null;
   },[]);
@@ -384,7 +371,7 @@ function PixelCard({ children, disabled=false }) {
   return (
     <div ref={wrapRef} onMouseEnter={disabled?undefined:enter} onMouseLeave={disabled?undefined:leave}
       style={{ position:"relative",overflow:"hidden",background:"var(--bg3)",borderRadius:12,height:"100%",border:"1px solid var(--border)",transition:"border-color 0.2s,transform 0.2s",opacity:disabled?0.55:1,pointerEvents:disabled?"none":undefined }}
-      onMouseOver={disabled?undefined:(e=>{e.currentTarget.style.borderColor="rgba(61,220,132,0.35)";e.currentTarget.style.transform="translateY(-3px)";})}
+      onMouseOver={disabled?undefined:(e=>{e.currentTarget.style.borderColor="rgba(108,99,255,0.35)";e.currentTarget.style.transform="translateY(-3px)";})}
       onMouseOut={disabled?undefined:(e=>{e.currentTarget.style.borderColor="var(--border)";e.currentTarget.style.transform="translateY(0)";})}
     >
       <canvas ref={canvasRef} style={{ position:"absolute",inset:0,borderRadius:"inherit",pointerEvents:"none",zIndex:0 }}/>
@@ -396,7 +383,7 @@ function PixelCard({ children, disabled=false }) {
 /* ══════════════════════════════════════════════════════════
    REACTBITS: SPOTLIGHT CARD  (About highlights)
 ══════════════════════════════════════════════════════════ */
-function SpotlightCard({ children, style={}, color="rgba(61,220,132,0.13)" }) {
+function SpotlightCard({ children, style={}, color="rgba(108,99,255,0.13)" }) {
   const ref=useRef(null);
   const onMove=useCallback((e)=>{
     if(!ref.current)return;
@@ -429,7 +416,7 @@ const Nav=()=>(
   <nav style={{ position:"fixed",top:0,left:0,right:0,zIndex:100,padding:"18px 5%",display:"flex",alignItems:"center",justifyContent:"space-between",background:"rgba(10,10,10,0.88)",backdropFilter:"blur(20px)",borderBottom:"1px solid var(--border)" }}>
     <a href="#hero" className="mono" style={{ fontSize:13,color:"var(--accent)",textDecoration:"none",letterSpacing:"0.02em" }}>pradeep.kr</a>
     <ul className="nav-links-list" style={{ display:"flex",gap:28,listStyle:"none" }}>
-      {["About","Experience","Skills","Projects","Recognition","Contact"].map(s=>(
+      {["About","Experience","Skills","Apps","Projects","Recognition","Contact"].map(s=>(
         <li key={s}><a href={`#${s.toLowerCase()}`} className="nav-link" style={{ fontSize:13,color:"var(--text2)",textDecoration:"none",letterSpacing:"0.04em",transition:"color 0.2s" }}>{s}</a></li>
       ))}
     </ul>
@@ -439,13 +426,11 @@ const Nav=()=>(
 
 /* ─── ENHANCED TERMINAL CARD ──────────────────────────────── */
 const Terminal=()=>(
-  <div style={{ background:"var(--bg2)",border:"1px solid rgba(61,220,132,0.15)",borderRadius:14,overflow:"hidden",boxShadow:"0 0 40px rgba(61,220,132,0.04),inset 0 1px 0 rgba(255,255,255,0.04)" }}>
-    {/* Title bar */}
+  <div style={{ background:"var(--bg2)",border:"1px solid rgba(108,99,255,0.2)",borderRadius:14,overflow:"hidden",boxShadow:"0 0 40px rgba(108,99,255,0.04),inset 0 1px 0 rgba(255,255,255,0.04)" }}>
     <div style={{ display:"flex",alignItems:"center",gap:8,padding:"12px 18px",background:"var(--bg3)",borderBottom:"1px solid var(--border)" }}>
       {["#ff5f56","#ffbd2e","#27c93f"].map(c=><span key={c} style={{ width:11,height:11,borderRadius:"50%",background:c,display:"inline-block" }}/>)}
       <span className="mono" style={{ fontSize:11,color:"var(--text3)",marginLeft:6 }}>Developer.kt — Pradeep Kumar Rai</span>
     </div>
-    {/* Code body */}
     <div className="mono" style={{ padding:"20px 22px",fontSize:12.5,lineHeight:2 }}>
       <div><span style={{color:"var(--text3)"}}>// Senior Android Developer · 6+ Years</span></div>
       <div style={{ height:6 }}/>
@@ -463,8 +448,7 @@ const Terminal=()=>(
       <div style={{paddingLeft:16,display:"flex"}}><span style={{color:"transparent",userSelect:"none",pointerEvents:"none",flexShrink:0}}>{"val note = \""}</span><span style={{color:"#c3e88d"}}>publicly available due to NDAs."</span></div>
       <div><span style={{color:"var(--text)"}}>)</span></div>
     </div>
-    {/* Status bar */}
-    <div style={{ padding:"8px 18px",background:"rgba(61,220,132,0.05)",borderTop:"1px solid rgba(61,220,132,0.1)",display:"flex",alignItems:"center",gap:12 }}>
+    <div style={{ padding:"8px 18px",background:"rgba(108,99,255,0.05)",borderTop:"1px solid rgba(108,99,255,0.1)",display:"flex",alignItems:"center",gap:12 }}>
       <span style={{ width:6,height:6,borderRadius:"50%",background:"var(--accent)",display:"inline-block",animation:"blink 2s ease-in-out infinite" }}/>
       <span className="mono" style={{ fontSize:10,color:"var(--accent)" }}>Kotlin · Jetpack Compose · MVVM · Clean Architecture</span>
     </div>
@@ -474,12 +458,12 @@ const Terminal=()=>(
 /* ─── HERO ─────────────────────────────────────────────────── */
 const Hero=()=>(
   <section id="hero" style={{ minHeight:"100vh",display:"flex",alignItems:"center",paddingTop:80,position:"relative",overflow:"hidden" }}>
-    <div style={{ position:"absolute",width:520,height:520,borderRadius:"50%",background:"rgba(61,220,132,0.055)",top:-120,left:-80,filter:"blur(120px)",pointerEvents:"none" }}/>
-    <div style={{ position:"absolute",width:380,height:380,borderRadius:"50%",background:"rgba(61,220,132,0.04)",bottom:40,right:"8%",filter:"blur(120px)",pointerEvents:"none" }}/>
+    <div style={{ position:"absolute",width:520,height:520,borderRadius:"50%",background:"rgba(108,99,255,0.06)",top:-120,left:-80,filter:"blur(120px)",pointerEvents:"none" }}/>
+    <div style={{ position:"absolute",width:380,height:380,borderRadius:"50%",background:"rgba(0,212,255,0.04)",bottom:40,right:"8%",filter:"blur(120px)",pointerEvents:"none" }}/>
     <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%",width:"100%",position:"relative",zIndex:1 }}>
       <div className="hero-inner" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:60,alignItems:"center" }}>
         <div>
-          <div style={{ display:"inline-flex",alignItems:"center",gap:8,background:"var(--accent-dim)",border:"1px solid rgba(61,220,132,0.25)",padding:"6px 14px",borderRadius:100,marginBottom:24 }}>
+          <div style={{ display:"inline-flex",alignItems:"center",gap:8,background:"var(--accent-dim)",border:"1px solid rgba(108,99,255,0.25)",padding:"6px 14px",borderRadius:100,marginBottom:24 }}>
             <span className="blink-dot" style={{ width:7,height:7,background:"var(--accent)",borderRadius:"50%",flexShrink:0 }}/>
             <span className="mono" style={{ fontSize:11.5,color:"var(--accent)" }}>Open to opportunities</span>
           </div>
@@ -504,7 +488,6 @@ const Hero=()=>(
             <a href="#contact" className="btn-g" style={{ display:"inline-flex",alignItems:"center",gap:7,border:"1px solid var(--border2)",color:"var(--text)",padding:"11px 22px",borderRadius:8,fontSize:14,fontWeight:500,textDecoration:"none",transition:"border-color 0.2s,color 0.2s,transform 0.15s" }}>Get in Touch</a>
           </div>
         </div>
-        {/* Right column */}
         <div style={{ display:"flex",flexDirection:"column",gap:20 }}>
           <ProfileCard
             name="Pradeep Kumar Rai"
@@ -529,36 +512,32 @@ const About=()=>(
       <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:40 }}>Building apps that<br/>millions actually use.</h2>
 
       <MagicBentoGrid>
-        {/* Bio — spans 2 cols, 2 rows */}
         <BentoCard span={2} rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",gap:14 }}>
-            <div style={{ width:40,height:40,borderRadius:10,background:"var(--accent-dim)",border:"1px solid rgba(61,220,132,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20 }}>👨‍💻</div>
+            <div style={{ width:40,height:40,borderRadius:10,background:"var(--accent-dim)",border:"1px solid rgba(108,99,255,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20 }}>👨‍💻</div>
             <div style={{ fontSize:13,fontWeight:700,color:"var(--text)",textTransform:"uppercase",letterSpacing:"0.08em",fontFamily:"'JetBrains Mono',monospace" }}>Who I am</div>
             <p style={{ fontSize:14,color:"var(--text2)",lineHeight:1.85 }}>Senior Android Developer & Team Lead based in Phnom Penh, Cambodia at LOMA Technology. I specialize in Kotlin, Jetpack Compose, and scalable Android architecture.</p>
             <p style={{ fontSize:13.5,color:"var(--text2)",lineHeight:1.8 }}>Grown from solo developer to team lead — recruiting, mentoring, and building high-performance teams while still writing the best code in the room.</p>
             <div style={{ marginTop:"auto",display:"flex",gap:8,flexWrap:"wrap" }}>
               {["Kotlin","Jetpack Compose","MVVM","CI/CD"].map(tag=>(
-                <span key={tag} className="mono" style={{ fontSize:10,color:"var(--accent)",background:"var(--accent-dim)",border:"1px solid rgba(61,220,132,0.2)",borderRadius:100,padding:"3px 10px" }}>{tag}</span>
+                <span key={tag} className="mono" style={{ fontSize:10,color:"var(--accent)",background:"var(--accent-dim)",border:"1px solid rgba(108,99,255,0.2)",borderRadius:100,padding:"3px 10px" }}>{tag}</span>
               ))}
             </div>
           </div>
         </BentoCard>
 
-        {/* 30% performance */}
         <BentoCard>
           <div style={{ fontSize:28,fontWeight:800,color:"var(--accent)",lineHeight:1 }}>30<span style={{fontSize:18}}>%</span></div>
           <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginTop:6,marginBottom:4 }}>Performance Boost</div>
           <div style={{ fontSize:11.5,color:"var(--text2)" }}>Kotlin migration → 25% less bug density</div>
         </BentoCard>
 
-        {/* 40% faster */}
         <BentoCard>
-          <div style={{ fontSize:28,fontWeight:800,color:"#82aaff",lineHeight:1 }}>40<span style={{fontSize:18}}>%</span></div>
+          <div style={{ fontSize:28,fontWeight:800,color:"#00D4FF",lineHeight:1 }}>40<span style={{fontSize:18}}>%</span></div>
           <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginTop:6,marginBottom:4 }}>Faster Dev</div>
           <div style={{ fontSize:11.5,color:"var(--text2)" }}>Jetpack Compose adoption company-wide</div>
         </BentoCard>
 
-        {/* CI/CD */}
         <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"space-between" }}>
             <div>
@@ -570,7 +549,6 @@ const About=()=>(
           </div>
         </BentoCard>
 
-        {/* Team */}
         <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"space-between" }}>
             <div>
@@ -581,7 +559,6 @@ const About=()=>(
           </div>
         </BentoCard>
 
-        {/* Location */}
         <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"center" }}>
             <div style={{ fontSize:22,marginBottom:8 }}>🌏</div>
@@ -590,7 +567,6 @@ const About=()=>(
           </div>
         </BentoCard>
 
-        {/* Users stat */}
         <BentoCard rowSpan={2}>
           <div style={{ display:"flex",flexDirection:"column",height:"100%",justifyContent:"center" }}>
             <div style={{ fontSize:28,fontWeight:800,lineHeight:1 }}>
@@ -627,12 +603,9 @@ function Experience() {
     const onScroll = () => {
       if (!sectionRef.current || !lineRef.current) return;
       const sr = sectionRef.current.getBoundingClientRect();
-      const lr = lineRef.current.getBoundingClientRect();
-      // How far down the section the user has scrolled
       const sectionH = sectionRef.current.offsetHeight;
       const scrolled = -sr.top + window.innerHeight * 0.35;
       const progress = Math.max(0, Math.min(1, scrolled / sectionH));
-      // Move avatar along the line
       const lineH = lineRef.current.offsetHeight;
       setAvatarTop(progress * lineH);
     };
@@ -648,19 +621,15 @@ function Experience() {
         <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:16 }}>Where I've worked.</h2>
 
         <div style={{ marginTop:48,display:"flex",gap:32 }}>
-          {/* Scroll avatar spine — left sidebar */}
           <div ref={lineRef} style={{ position:"relative",width:64,flexShrink:0 }}>
-            {/* Vertical line */}
-            <div style={{ position:"absolute",left:"50%",transform:"translateX(-50%)",top:0,bottom:0,width:2,background:"linear-gradient(to bottom,var(--accent) 0%,rgba(61,220,132,0.1) 100%)",borderRadius:2 }}/>
-            {/* Scrolling avatar circle */}
+            <div style={{ position:"absolute",left:"50%",transform:"translateX(-50%)",top:0,bottom:0,width:2,background:"linear-gradient(to bottom,var(--accent) 0%,rgba(108,99,255,0.1) 100%)",borderRadius:2 }}/>
             <div ref={avatarRef} style={{ position:"absolute",left:"50%",transform:"translateX(-50%)",top:avatarTop,width:52,height:52,borderRadius:"50%",zIndex:5,transition:"top 0.1s ease-out" }}>
-              <div style={{ width:"100%",height:"100%",borderRadius:"50%",border:"2.5px solid var(--accent)",boxShadow:"0 0 0 4px rgba(61,220,132,0.15),0 0 20px rgba(61,220,132,0.3)",overflow:"hidden" }}>
+              <div style={{ width:"100%",height:"100%",borderRadius:"50%",border:"2.5px solid var(--accent)",boxShadow:"0 0 0 4px rgba(108,99,255,0.15),0 0 20px rgba(108,99,255,0.3)",overflow:"hidden" }}>
                 <img src="https://avatars.githubusercontent.com/raipradeep" alt="Pradeep" style={{ width:"100%",height:"100%",objectFit:"cover" }}/>
               </div>
             </div>
           </div>
 
-          {/* Timeline items */}
           <div style={{ flex:1,display:"flex",flexDirection:"column" }}>
             {experiences.map((exp,idx)=>(
               <div key={idx} className="tli-grid" style={{ display:"grid",gridTemplateColumns:"130px 1fr",gap:"0 28px",paddingBottom:idx<experiences.length-1?52:0 }}>
@@ -695,6 +664,45 @@ const Skills=()=>(
   </section>
 );
 
+/* ─── APPS I'VE WORKED ON ──────────────────────────────────── */
+const appCategories = [
+  { icon:"🛍️", name:"Shopping Apps", desc:"E-commerce platforms with multi-payment, cart, and delivery tracking" },
+  { icon:"🏥", name:"Health Care App", desc:"Patient management, appointment booking, and telemedicine" },
+  { icon:"❤️", name:"Dating App", desc:"Matchmaking, real-time chat, and profile discovery" },
+  { icon:"⚽", name:"Live Sports", desc:"Real-time scores, live commentary, and match highlights" },
+  { icon:"🏦", name:"Banking App", desc:"Secure transactions, PCI-DSS compliant, and portfolio tracking" },
+  { icon:"🎬", name:"Video Player App", desc:"High-performance playback with offline caching and subtitles" },
+  { icon:"📡", name:"Live Streaming App", desc:"Low-latency streaming with chat and reactions" },
+  { icon:"💬", name:"Chatting App", desc:"Real-time messaging, voice notes, and end-to-end encryption" },
+  { icon:"📰", name:"News App", desc:"Curated news feeds, push notifications, and offline reading" },
+  { icon:"📊", name:"Trading App", desc:"Live market data, charting tools, and order execution" },
+  { icon:"🎰", name:"Casino Apps", desc:"Entertainment platforms with live games and secure payments" },
+];
+
+const AppsSection=()=>(
+  <section id="apps" style={{ padding:"100px 0",background:"var(--bg2)" }}>
+    <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%" }}>
+      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>— Apps I've Built</p>
+      <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:12 }}>Diverse portfolio across<br/>every major category.</h2>
+      <p style={{ fontSize:14,color:"var(--text2)",marginBottom:40,maxWidth:620 }}>From shopping and banking to live streaming and healthcare — I've shipped production-grade apps across 11+ domains, each with unique challenges and high user engagement.</p>
+
+      <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:16 }}>
+        {appCategories.map((app)=>(
+          <div key={app.name} className="app-card"
+            style={{ background:"var(--bg3)",border:"1px solid var(--border)",borderRadius:14,padding:"20px 18px",transition:"transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease",cursor:"default" }}
+            onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-6px) scale(1.02)";e.currentTarget.style.boxShadow="0 16px 48px rgba(108,99,255,0.15)";e.currentTarget.style.borderColor="rgba(108,99,255,0.5)";}}
+            onMouseLeave={e=>{e.currentTarget.style.transform="translateY(0) scale(1)";e.currentTarget.style.boxShadow="none";e.currentTarget.style.borderColor="var(--border)";}}
+          >
+            <div style={{ fontSize:32,marginBottom:10 }}>{app.icon}</div>
+            <div style={{ fontSize:14,fontWeight:600,color:"var(--text)",marginBottom:4 }}>{app.name}</div>
+            <div style={{ fontSize:11.5,color:"var(--text3)",lineHeight:1.5 }}>{app.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 /* ─── PROJECTS (PixelCards) ────────────────────────────────── */
 const projects=[
   { href:"https://play.google.com/store/apps/details?id=com.loma.oneshop",icon:"🛍️",tag:"E-Commerce",name:"OneShop",desc:"Cambodia's go-to shopping platform with thousands of deals starting at $1. Smooth product discovery, secure multi-payment, and fast delivery UX.",meta:"50K+ downloads · 4.3★",live:true },
@@ -714,7 +722,7 @@ const PCardContent=({ icon,tag,name,desc,meta,live,nda })=>(
       {nda?<span className="mono" style={{ fontSize:11,color:"var(--text3)" }}>NDA</span>:<span style={{ color:"var(--text3)",fontSize:17 }}>↗</span>}
     </div>
     <div>
-      <span style={{ display:"inline-flex",alignItems:"center",background:"var(--accent-dim)",border:"1px solid rgba(61,220,132,0.2)",color:"var(--accent)",fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,padding:"3px 10px",borderRadius:100 }}>{tag}</span>
+      <span style={{ display:"inline-flex",alignItems:"center",background:"var(--accent-dim)",border:"1px solid rgba(108,99,255,0.2)",color:"var(--accent)",fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,padding:"3px 10px",borderRadius:100 }}>{tag}</span>
       <div style={{ fontSize:16,fontWeight:600,color:"var(--text)",lineHeight:1.3,marginTop:8 }}>{name}</div>
       <p style={{ fontSize:13,color:"var(--text2)",lineHeight:1.7 }}>{desc}</p>
     </div>
@@ -726,9 +734,9 @@ const PCardContent=({ icon,tag,name,desc,meta,live,nda })=>(
 );
 
 const Projects=()=>(
-  <section id="projects" style={{ padding:"100px 0",background:"var(--bg2)" }}>
+  <section id="projects" style={{ padding:"100px 0" }}>
     <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%" }}>
-      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>04 — Projects</p>
+      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>05 — Projects</p>
       <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:16 }}>Apps on the Play Store.</h2>
       <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(310px,1fr))",gap:18,marginTop:44 }}>
         {projects.map(p=>p.nda?(
@@ -746,27 +754,25 @@ const Projects=()=>(
 
 /* ─── EDUCATION & AWARDS (Magic Bento) ────────────────────── */
 const More=()=>(
-  <section id="recognition" style={{ padding:"100px 0" }}>
+  <section id="recognition" style={{ padding:"100px 0",background:"var(--bg2)" }}>
     <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%" }}>
-      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>05 — Recognition</p>
+      <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>06 — Recognition</p>
       <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:40 }}>Awards &amp; Achievements.</h2>
 
       <MagicBentoGrid>
-        {/* Developer of year — big card */}
-        <BentoCard span={2} rowSpan={2} style={{ background:"linear-gradient(135deg,#0f2d1c 0%,#111 60%)" }}>
+        <BentoCard span={2} rowSpan={2} style={{ background:"linear-gradient(135deg,#1a0a2e 0%,#111 60%)" }}>
           <div style={{ height:"100%",display:"flex",flexDirection:"column" }}>
             <div style={{ fontSize:36,marginBottom:12 }}>🌟</div>
             <div style={{ fontSize:15,fontWeight:700,color:"var(--text)",marginBottom:4 }}>Developer of the Year</div>
             <div className="mono" style={{ fontSize:11,color:"var(--accent)",marginBottom:12 }}>Xcellity Technology Pvt Ltd</div>
             <p style={{ fontSize:13,color:"var(--text2)",lineHeight:1.7,flex:1 }}>Recognized for outstanding contributions, innovative solutions, and exceptional performance as Solo Android Developer — consistently exceeding client expectations under challenging deadlines.</p>
-            <div style={{ marginTop:16,display:"inline-flex",alignItems:"center",gap:6,background:"var(--accent-dim)",border:"1px solid rgba(61,220,132,0.2)",borderRadius:100,padding:"4px 12px",alignSelf:"flex-start" }}>
+            <div style={{ marginTop:16,display:"inline-flex",alignItems:"center",gap:6,background:"var(--accent-dim)",border:"1px solid rgba(108,99,255,0.2)",borderRadius:100,padding:"4px 12px",alignSelf:"flex-start" }}>
               <span style={{ width:6,height:6,borderRadius:"50%",background:"var(--accent)" }}/>
               <span className="mono" style={{ fontSize:10,color:"var(--accent)" }}>Top performer · 2020–2022</span>
             </div>
           </div>
         </BentoCard>
 
-        {/* Certification */}
         <BentoCard span={2}>
           <div style={{ display:"flex",gap:12,alignItems:"flex-start" }}>
             <span style={{ fontSize:26 }}>📜</span>
@@ -778,7 +784,6 @@ const More=()=>(
           </div>
         </BentoCard>
 
-        {/* Languages */}
         <BentoCard>
           <div style={{ fontSize:22,marginBottom:10 }}>🌐</div>
           <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginBottom:8 }}>Languages</div>
@@ -792,7 +797,6 @@ const More=()=>(
           </div>
         </BentoCard>
 
-        {/* Location */}
         <BentoCard>
           <div style={{ fontSize:22,marginBottom:10 }}>📍</div>
           <div style={{ fontSize:12,fontWeight:600,color:"var(--text)",marginBottom:4 }}>Currently in</div>
@@ -806,15 +810,15 @@ const More=()=>(
 
 /* ─── CONTACT (with Lanyard widget) ───────────────────────── */
 const Contact=()=>(
-  <section id="contact" style={{ padding:"100px 0",background:"var(--bg2)" }}>
+  <section id="contact" style={{ padding:"100px 0" }}>
     <div style={{ maxWidth:1100,margin:"0 auto",padding:"0 5%" }}>
       <div style={{ maxWidth:720,margin:"0 auto",textAlign:"center" }}>
-        <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>06 — Contact</p>
+        <p className="mono" style={{ fontSize:11.5,color:"var(--accent)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10 }}>07 — Contact</p>
         <h2 style={{ fontSize:"clamp(26px,3.5vw,38px)",fontWeight:700,letterSpacing:"-0.02em",lineHeight:1.15,marginBottom:16 }}>Let's build something<br/>great together.</h2>
         <p style={{ fontSize:14.5,color:"var(--text2)",lineHeight:1.85,margin:"18px 0 32px" }}>Open to Senior Android roles, team lead positions, freelance projects, and interesting collaborations. Based in Cambodia — available globally.</p>
 
-        <a href="mailto:raipradeep009@gmail.com" className="c-email mono" style={{ display:"inline-block",fontSize:16,color:"var(--accent)",textDecoration:"none",borderBottom:"1px solid rgba(61,220,132,0.3)",paddingBottom:3,marginBottom:8,transition:"border-color 0.2s" }}>raipradeep009@gmail.com</a>
-        <span className="mono" style={{ display:"block",fontSize:12,color:"var(--text3)",marginBottom:32 }}>📱 WhatsApp / Telegram: +91-7905307223 · +855-11713091</span>
+        <a href="mailto:raipradeep009@gmail.com" className="c-email mono" style={{ display:"inline-block",fontSize:16,color:"var(--accent)",textDecoration:"none",borderBottom:"1px solid rgba(108,99,255,0.3)",paddingBottom:3,marginBottom:8,transition:"border-color 0.2s" }}>raipradeep009@gmail.com</a>
+        <span className="mono" style={{ display:"block",fontSize:12,color:"var(--text3)",marginBottom:32 }}>📱 WhatsApp: +91-7905307223 · Telegram: +855-11713091</span>
 
         <div style={{ display:"flex",justifyContent:"center",gap:12,flexWrap:"wrap" }}>
           {[
@@ -827,7 +831,7 @@ const Contact=()=>(
             </a>
           ))}
           <a href="https://wa.me/917905307223" target="_blank" rel="noopener" className="soc-btn mono" style={{ display:"inline-flex",alignItems:"center",gap:7,border:"1px solid var(--border2)",color:"var(--text2)",padding:"9px 16px",borderRadius:8,fontSize:12.5,textDecoration:"none",transition:"border-color 0.2s,color 0.2s,background 0.2s" }}>💬 WhatsApp</a>
-          <a href="https://t.me/+917905307223" target="_blank" rel="noopener" className="soc-btn mono" style={{ display:"inline-flex",alignItems:"center",gap:7,border:"1px solid var(--border2)",color:"var(--text2)",padding:"9px 16px",borderRadius:8,fontSize:12.5,textDecoration:"none",transition:"border-color 0.2s,color 0.2s,background 0.2s" }}>✈️ Telegram</a>
+          <a href="https://t.me/+85511713091" target="_blank" rel="noopener" className="soc-btn mono" style={{ display:"inline-flex",alignItems:"center",gap:7,border:"1px solid var(--border2)",color:"var(--text2)",padding:"9px 16px",borderRadius:8,fontSize:12.5,textDecoration:"none",transition:"border-color 0.2s,color 0.2s,background 0.2s" }}>✈️ Telegram</a>
         </div>
       </div>
     </div>
@@ -852,6 +856,7 @@ export default function App() {
       <About/>
       <Experience/>
       <Skills/>
+      <AppsSection/>
       <Projects/>
       <More/>
       <Contact/>
